@@ -1,4 +1,6 @@
 <?php session_start(); 
+
+	//Don't delete these for the love of god
 	$_SESSION['wsdl'] = "http://localhost:8080/TTTWebApplication/TTTWebService?WSDL";
 	$_SESSION['exceptions'] = true;
 	$_SESSION['trace'] = true;
@@ -22,7 +24,6 @@
 				$wsdl = $_SESSION['wsdl'];
 				$trace = $_SESSION['trace'];
 				$exceptions = $_SESSION['exceptions'];
-
 				try {
 					$client = new SoapClient($wsdl, array('trace' => $trace, 'exceptions' => $exceptions));
 
@@ -30,24 +31,24 @@
 					$response = $client->login($params);
 					$userid = (int) $response->return;
 					
-					echo $userid;
-					/*
 					switch($userid) {
 						case -2:
 						case -1:
-							echo "<h4> ERRRRRRRRRRRRRRRRRRRRRRRRRRRROR </h4";
+							showLogin();
+							echo "<h4>Error Invalid username or password supplied</h4";
 							break;
 						case 0:
-							echo "<h4> Invalid creds </h4>";
+							showLogin();
+							echo "<h4>Error Invalid request</h4>";
 							break;
-						}
-							/*
+							
 						default:
-							$xml_array = null;
-							$xml_array["playerid"] = $userid;
+							$_SESSION["uname"] = $userid;
+							header("location: menu.php");
+							/*
 							$response = $client->newGame($xml_array);
 							$gameid = (int) $response->return;
-
+							echo $gameid;*/
 							/*
 							//Check states aight
 							switch($gameid) {
@@ -65,11 +66,7 @@
 								</script>
 							}
 							*/
-					//}
-
-				$_SESSION["wsdl"] = $wsdl;
-				$_SESSION["trace"] = $trace;
-				$_SESSION["exceptions"] = $exceptions;
+					}
 
 				} catch(Exception $ex) {
 					echo $ex->getMessage();
@@ -78,8 +75,12 @@
 			} else if(isset($_POST['register'])) {
 				header("location: register.php");
 			} else {
-		?>
+				showLogin();
+			}
 
+
+		function showLogin() {
+		?>
 		<form action="index.php" method="POST">
 			<table>
 				<tr>

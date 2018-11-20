@@ -32,9 +32,26 @@
 							echo "Error no first name supplied.";
 						else if($_POST['secondName'] == "")
 							echo "Error no second name supplied.";
+						else {
+							try {
+						$client = new SoapClient($wsdl, array('trace' => $trace, 'exceptions' => $exceptions));
+
+						$params = array('username' => $_POST['uname'], 'password' => $_POST['pword'], 'name' => $_POST['firstName'], 'surname' => $_POST['secondName']);
+						$response = $client->register($params);
+						$userid = (int) $response->return;
+						
+						if($userid == 0)
+							echo "Error that user is already a registered user.";
+						else if($userid > 0)
+							echo "User successfully created.";
 						else
-							echo "done";
+							echo "Unknown Error while parsing data."; 
+
+						} catch(Exception $ex) {
+							echo "Error Could not connect to db";
+						}
 					}
+				}
 				else {
 					echo "incomplete stuff there bud";
 				}
@@ -64,7 +81,7 @@
 
 						<td colspan="1">
 							<hr />
-							<input type="submit" value="Cancel" name="cancel"/>
+							<input type="submit" value="Back" name="cancel"/>
 						</td>
 						<td colspan="1">
 
