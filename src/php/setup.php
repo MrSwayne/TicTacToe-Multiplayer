@@ -74,13 +74,10 @@
 			switch($gameid) {
 				case $gameid > 0: 
 				$params = null;
-				$params['gid'] = $gameid;
+				$_SESSION['gameid'] = $gameid;
 				
 
 				header("location: game.php");
-				
-				
-
 				break;
 				default: echo "mistake";
 			}

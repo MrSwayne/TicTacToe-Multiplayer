@@ -1,5 +1,5 @@
 <?php
-class GameThread {
+class GameThread extends Thread {
 	protected $wsdl;
 	protected $gid;
 	protected $pid;

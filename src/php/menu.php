@@ -35,7 +35,7 @@
 			function joinGame($userid, $client) {
 				?>
 
-				<form action="setup.php" method="POST">
+				<form action="setup.php" method="POST" id="menu">
 				<table>
 					<tr>
 						<td>GameID</td>
@@ -84,6 +84,7 @@
 						<td><input type="submit" value="Leaderboards" name="leaderboard" id="leaderboard" tabindex="4"></td>
 					</tr>
 				</table>
+			</form>
 
 			<form action="options.php" method="POST">
 				<table>
