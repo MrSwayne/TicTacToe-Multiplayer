@@ -1,5 +1,5 @@
 <?php session_start(); 
-
+	phpinfo();
 	//Don't delete these for the love of god
 	$_SESSION['wsdl'] = "http://localhost:8080/TTTWebApplication/TTTWebService?WSDL";
 	$_SESSION['exceptions'] = true;

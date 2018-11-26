@@ -34,7 +34,7 @@
 			function joinGame($userid, $client) {
 				?>
 
-				<form action="game.php" method="POST">
+				<form action="setup.php" method="POST">
 				<table>
 					<tr>
 						<td>GameID</td>
@@ -43,7 +43,6 @@
 					<tr>
 						<td><input type="submit" name="join" value="Join" id="join" tabindex="2"></td>
 					</tr>
-
 
 				<?php
 			}
@@ -59,7 +58,7 @@
 			?>
 
 			<h4>Welcome to TicTacToe!</h4>
-			<form action="game.php" method="POST">
+			<form action="setup.php" method="POST">
 			<table>
 				<tr>
 					<td><input type="submit" value="New Game" name="newGame" id="newGame" tabindex="1"></td>
@@ -67,13 +66,24 @@
 				<tr>
 					<td><input type="submit" value="Join Game "name="joinGame" id="joinGame" tabindex="2"></td>
 				</tr>
+
+				<tr>
+					<td><input type="submit" value="Score" name="score" id="score" tabindex="3"></td>
+				</tr>
 			</table>
 			</form>
+
+			<form action="leaderboards.php" method="POST">
+				<table>
+					<tr>
+						<td><input type="submit" value="Leaderboards" name="leaderboard" id="leaderboard" tabindex="4"></td>
+					</tr>
+				</table>
 
 			<form action="options.php" method="POST">
 				<table>
 					<tr>
-						<td><input type="submit" value="Options" name="options" id="options" tabindex="3"></td>
+						<td><input type="submit" value="Options" name="options" id="options" tabindex="4"></td>
 					</tr>
 				</table>
 			</form>
