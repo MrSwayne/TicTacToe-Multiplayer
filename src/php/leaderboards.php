@@ -7,6 +7,7 @@
 <html lang="en-ie">
 
 <head>
+	<link rel="stylesheet" href="css/style.css">
 	<title></title>
 </head>
 
@@ -20,6 +21,7 @@
 				$response = $client->leagueTable();
 				$data = $response->return;
 
+				$arr = null;
 				switch($data) {
 					case "ERROR-NOGAMES":
 						echo "No Games have been played yet.";
@@ -28,7 +30,37 @@
 						echo "Cannot conenct to db.";
 						break;
 					default:
-						var_dump($data);
+						$data = explode("\n", $data);
+						foreach($data as $datum) {
+							$line = explode(",", $datum);
+							$name1 = $line[1];
+							$name2 = $line[2];
+							$gameState = $line[3];
+
+							if($gameState == 1) {
+								if(!isset($arr[$name1]))	$arr[$name1] = 0;
+								$arr[$name1] = ($arr[$name1] + 1);
+							} else if($gameState == 2) {
+								if(!isset($arr[$name2]))	$arr[$name2] = 0;
+								$arr[$name2] = ($arr[$name2] + 1);
+							}
+						}
+
+						?>
+						<table>
+							<tr><td>name</td><td>Wins</td></tr>
+							<?php foreach($arr as $key => $value)  {
+								echo "<tr>
+									<td>$key</td>
+									<td>$value</td>
+									</tr>";
+							}
+
+							?>
+
+							
+						</table>
+						<?php
 				}
 			}
 

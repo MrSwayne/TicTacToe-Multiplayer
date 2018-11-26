@@ -1,12 +1,15 @@
 <?php
-class GameThread extends Thread {
+class GameThread {
 	protected $wsdl;
 	protected $gid;
 	protected $pid;
+	protected static $player = -1;
+	protected static $tile = array('X', 'Y');
 
 	protected $myTurn = false;
 
 	public function __construct($wsdl, $gid, $pid) {
+		$player++;
 		echo "creating $pid";
 		$this->$wsdl = $wsdl;
 		$this->gid = $gid;
@@ -17,8 +20,6 @@ class GameThread extends Thread {
 		takeSquare(4,2);
 		drawBoard();
 		//init inital stuff;
-
-
 	}
 
 	public function run() {
@@ -28,6 +29,10 @@ class GameThread extends Thread {
 		$params = array('gid' => $gid);
 		$response = $client->getGameState($params);
 		$resp = (int)$response->return;
+
+		while($client->getGameState($params)->return == 0) {
+
+		}
 	}
 
 	function drawBoard() {
@@ -39,18 +44,34 @@ class GameThread extends Thread {
 			case 'ERROR-NOMOVES': break;
 			case 'ERROR-DB': header("location: index.php"); break;
 			default:
-			var_dump($data);
+
+			//for($i = 0;$i )
+			
+			$data = explode("\n", $data);
+
+			$line = explode(",", $data[count($data) - 1]);
+
+			if($line[0] == $pid) {
+				$myTurn = true;
+			} else
+				$myTurn = false;
 		}
 	}
 
 	function takeSquare($x, $y) {
-		$params = array('x' => $x, 'y' => $y, 'gid' => $gid, 'pid' => $pid);
-		$response = $client->takeSquare($params);
-		$data = (int)$response->return;
+			if(myTurn) {
+			$params = array('x' => $x, 'y' => $y, 'gid' => $gid, 'pid' => $pid);
+			$response = $client->takeSquare($params);
+			$data = (int)$response->return;
 
-		switch($data) {
-			case 1: drawBoard();  break;
-			default: 
+			switch($data) {
+				case 1: 
+
+				drawBoard();  break;
+				case 'ERROR-TAKEN': drawBoard(); break;
+				default: 
+						header("location: index.php");
+			}
 		}
 	}
 }

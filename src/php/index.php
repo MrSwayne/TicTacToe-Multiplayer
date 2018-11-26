@@ -1,5 +1,4 @@
 <?php session_start(); 
-	phpinfo();
 	//Don't delete these for the love of god
 	$_SESSION['wsdl'] = "http://localhost:8080/TTTWebApplication/TTTWebService?WSDL";
 	$_SESSION['exceptions'] = true;
@@ -9,6 +8,7 @@
 <html lang="en-ie">
 
 <head>
+		<link rel="stylesheet" href="css/style.css">
 	<title></title>
 </head>
 
@@ -44,6 +44,7 @@
 							
 						default:
 							$_SESSION["uname"] = $userid;
+							$_SESSION["username"] = $user;
 							header("location: menu.php");
 							/*
 							$response = $client->newGame($xml_array);

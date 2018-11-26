@@ -11,6 +11,7 @@
 <html lang="en-ie">
 
 <head>
+		<link rel="stylesheet" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -33,7 +34,7 @@
 		$userid = $_SESSION['uname'];
 
 		$client = new SoapClient($_SESSION['wsdl'], array('trace' => $_SESSION['trace'], 'exceptions' => $_SESSION['exceptions']));
-
+		/*
 		if(isset($_POST['retry'])) {
 			$params = null;
 			$gameid = $_SESSION['gameid'];
@@ -61,8 +62,8 @@
 					<?php
 			} else {
 				header("location: game.php");
-			}
-		}
+			}*/
+		
 
 		function newGame($userid, $client) {
 			$params = null;
@@ -74,40 +75,16 @@
 				case $gameid > 0: 
 				$params = null;
 				$params['gid'] = $gameid;
-				$response = $client->getGameState($params);
-				$gameState = $response->return;
 				
 
-				if($gameState < 0) {
-					echo "Waiting for player 2 to join game $gameid. Please click Retry when player 2 has joined";
-					?>
-					<form action="menu.php" method="POST">
-					<table>
-						<tr>
-							<td><input type="submit" name="quit" value="quit" id="quit" tabindex="1"></td>
-						</tr>
-					</table>
-					</form>
-
-					<form action="setup.php" method="POST">
-								<table>
-									<tr>
-										<td><input type="submit" name="retry" value="retry" id="retry" tabindex="2"></td>
-									</tr>
-								</table>
-							</form>
-						<?php
-				} else {
-					$_SESSION['gameid'] = $gameid;
-					header("location: game.php");
-				}
-			
-				//}
-
+				header("location: game.php");
+				
+				
 
 				break;
 				default: echo "mistake";
 			}
+			
 		}
 
 		function joinGame($userid, $client) {

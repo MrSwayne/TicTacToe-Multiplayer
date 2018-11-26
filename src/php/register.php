@@ -7,6 +7,7 @@
 <html lang="en-ie">
 
 <head>
+	<link rel="stylesheet" href="css/style.css">
 	<title></title>
 </head>
 

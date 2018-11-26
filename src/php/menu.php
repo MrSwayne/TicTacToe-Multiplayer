@@ -7,6 +7,7 @@
 <html lang="en-ie">
 
 <head>
+		<link rel="stylesheet" href="css/style.css">
 	<title></title>
 </head>
 
@@ -66,11 +67,15 @@
 				<tr>
 					<td><input type="submit" value="Join Game "name="joinGame" id="joinGame" tabindex="2"></td>
 				</tr>
-
-				<tr>
-					<td><input type="submit" value="Score" name="score" id="score" tabindex="3"></td>
-				</tr>
 			</table>
+			</form>
+
+			<form action="score.php" method="POST">
+				<table>
+					<tr>
+						<td><input type="submit" value="Score" name="score" id="score" tabindex="3"></td>
+					</tr>
+				</table>
 			</form>
 
 			<form action="leaderboards.php" method="POST">
